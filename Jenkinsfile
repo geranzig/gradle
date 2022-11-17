@@ -38,7 +38,7 @@ pipeline {
 
         stage('Run Code') {
             steps {
-                sh 'gradle bootRun'
+                sh 'gradle bootRun &'
             }
         }
 
