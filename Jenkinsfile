@@ -23,7 +23,7 @@ pipeline {
             }
             steps {
                  withSonarQubeEnv('SonarServer-1') {
-                    sh 'maven clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.host.url=http://178.128.155.87:9000 -Dsonar.java.binaries=build -Dsonar.login=sqp_3b879c0e3e708f0dbcbfdfdf81b432e84560c4e1'
+                    sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.host.url=http://178.128.155.87:9000 -Dsonar.java.binaries=build -Dsonar.login=sqp_3b879c0e3e708f0dbcbfdfdf81b432e84560c4e1'
                 }
             }
             
