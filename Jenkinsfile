@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools{
-        gradle:'GradleTools'
-        maven:'MavenTools'
+        gradle 'GradleTools'
+        maven 'MavenTools'
     }
 
     environment{
