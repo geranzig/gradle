@@ -1,34 +1,9 @@
-import groovy.json.JsonOutput
-
-def COLOR_MAP =[
-    'SUCCESS': 'good',
-    'FAILURE': 'danger'
-]
-
-
-
-def getBuildUser() {
-  def userCause = currentBuild.rawBuild.getCause(Cause.UserIdCause)
-  def upstreamCause = currentBuild.rawBuild.getCause(Cause.UpstreamCause)
-
-  if (userCause) {
-    return userCause.getUserId()
-  } else if (upstreamCause) {
-    def upstreamJob = Jenkins.getInstance().getItemByFullName(upstreamCause.getUpstreamProject(), hudson.model.Job.class)
-    if (upstreamJob) {
-      def upstreamBuild = upstreamJob.getBuildByNumber(upstreamCause.getUpstreamBuild())
-      if (upstreamBuild) {
-        def realUpstreamCause = upstreamBuild.getCause(Cause.UserIdCause)
-        if (realUpstreamCause) {
-          return realUpstreamCause.getUserId()
-        }
-      }
-    }
-  }
-}
-
 pipeline {
     agent any
+    tools{
+        gradle:'GradleTools'
+        maven:'MavenTools'
+    }
 
     environment{
         BUILD_USER = ''
@@ -38,7 +13,7 @@ pipeline {
     stages {
         stage('Compilación & Test') {
             steps {
-                sh './gradle build'
+                sh 'gradle build'
             }
         }
 
@@ -48,7 +23,7 @@ pipeline {
             }
             steps {
                  withSonarQubeEnv('SonarServer-1') {
-                    sh './mvnw clean verify sonar:sonar -Dsonar.projectKey=lab1-mod3 -Dsonar.host.url=http://178.128.155.87:9000 -Dsonar.login=sqp_3b879c0e3e708f0dbcbfdfdf81b432e84560c4e1'
+                    sh './mvnw clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.host.url=http://178.128.155.87:9000 -Dsonar.java.binaries=build -Dsonar.login=sqp_3b879c0e3e708f0dbcbfdfdf81b432e84560c4e1'
                 }
             }
             
@@ -63,15 +38,9 @@ pipeline {
 
         stage('Run Code') {
             steps {
-                sh './gradle bootRun'
+                sh 'gradle bootRun'
             }
         }
-        stage('Run Jar') {
-            steps {
-                sh 'nohup bash mvnw spring-boot:run &'
-            }
-        }
-
 
         stage('Build Deploy Code') {
             when {
@@ -97,15 +66,7 @@ pipeline {
             setBuildStatus("Build failed", "FAILURE");
         } 
 
-        always{
-            script{
-                BUILD_USER = getBuildUser()
-            }
 
-            slackSend channel:'#devops-equipo5',
-                    color:COLOR_MAP[currentBuild.currentResult],
-                    message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${BUILD_USER}"
-         }
     }
 }
 
