@@ -107,7 +107,7 @@ pipeline {
                 setBuildStatus("Build failed", "FAILURE");
             } 
 
-          / always{
+           always{
                 script{
                     BUILD_USER = getBuildUser()
                 }
