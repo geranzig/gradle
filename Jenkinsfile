@@ -83,15 +83,6 @@ pipeline {
             }
         }  
 
-   /*     stage("Run Code") {
-         steps {
-                script {
-                    code.Run()
-                }
-            }            
-            
-        }*/
-
         stage('Build Deploy Code') {
             when {
                 branch 'main'
@@ -124,17 +115,13 @@ pipeline {
                 slackSend channel:'#devops-equipo5',
                         color:COLOR_MAP[currentBuild.currentResult],
                         message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} ${params.COMPILATIONTOOLS} build ${env.BUILD_NUMBER} by ${BUILD_USER}"
-           */
-            }
+           
+            }*/
         }
-
-        failure {
-            setBuildStatus("Build failed", "FAILURE");
-        } 
 
 
     }
-}
+
 
 
 
