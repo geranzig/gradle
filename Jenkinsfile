@@ -13,6 +13,10 @@ pipeline {
         choice(name: 'COMPILATION-TCOOLS', choices: ['maven', 'gradle'], description: 'Tool')
     }
 
+
+
+    stages {
+
     stage('Carga script') {
         steps {
             script {
@@ -21,22 +25,22 @@ pipeline {
         }
     }
 
-    stages {
         stage('Compilación & Test') {
 
          steps {
                 script {
                     code.Build()
                 }
+            }
         }
 
-       stage('Análisis Sonarqube') {
+        stage("Análisis Sonarqube") {
             environment {
-                scannerHome = tool 'SonarScanner'
+                scannerHome = tool "SonarScanner"
             }
             steps {
-                 withSonarQubeEnv('SonarServer-1') {
-                    sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=gradle-test -Dsonar.host.url=http://178.128.155.87:9000  -Dsonar.login=sqp_10c86add5add0c41abe71d9f0377f11070a08e57 -Dsonar.java.binaries=build'
+                 withSonarQubeEnv("SonarServer-1") {
+                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=gradle-test -Dsonar.host.url=http://178.128.155.87:9000  -Dsonar.login=sqp_10c86add5add0c41abe71d9f0377f11070a08e57 -Dsonar.java.binaries=build"
                 }
             }
             
@@ -48,11 +52,13 @@ pipeline {
             }
         }  
 
-
-        stage('Run Code') {
-            steps {
-                sh 'gradle bootRun &'
-            }
+        stage("Run Code") {
+         steps {
+                script {
+                    code.Run()
+                }
+            }            
+            
         }
 
         stage('Build Deploy Code') {
