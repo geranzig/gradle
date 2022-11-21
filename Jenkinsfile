@@ -107,16 +107,16 @@ pipeline {
                 setBuildStatus("Build failed", "FAILURE");
             } 
 
-          /*  always{
+          / always{
                 script{
                     BUILD_USER = getBuildUser()
                 }
 
                 slackSend channel:'#devops-equipo5',
                         color:COLOR_MAP[currentBuild.currentResult],
-                        message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} ${params.COMPILATIONTOOLS} build ${env.BUILD_NUMBER} by ${BUILD_USER}"
+                        message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} ${params.COMPILATIONTOOLS} build ${env.BUILD_NUMBER} by GCORNEJO"
            
-            }*/
+            }
         }
 
 
@@ -124,13 +124,13 @@ pipeline {
 
 
 
-
+/*
 void setBuildStatus(String message, String state) {
     step([
         $class: "GitHubCommitStatusSetter",
-        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/Eduardo-L-R/ms-iclab"],
+        reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/geranzig/gradle.git"],
         contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
         errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
         statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]]]
     ]);
-}
+}*/
