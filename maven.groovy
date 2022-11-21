@@ -1,7 +1,3 @@
-
-    tools{
-        maven 'MavenTools'
-    }
 def Build() {
 
     sh '''#!/bin/bash

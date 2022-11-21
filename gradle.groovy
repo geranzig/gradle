@@ -1,6 +1,3 @@
-tools{
-        gradle 'GradleTools'
-    }
 
 def Build() {
   sh './gradlew build'
