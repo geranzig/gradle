@@ -1,6 +1,6 @@
 def Build() {
-  sh './mvnw clean compile -e'
-  sh './mvnw clean test -e'
+  sh 'mvnw clean compile -e'
+  sh 'mvnw clean test -e'
 }
 
 return this
