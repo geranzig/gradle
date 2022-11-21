@@ -9,12 +9,25 @@ pipeline {
         BUILD_USER = ''
     }
 
+    parameters {
+        choice(name: 'COMPILATION-TCOOLS', choices: ['maven', 'gradle'], description: 'Tool')
+    }
+
+    stage('Carga script') {
+        steps {
+            script {
+                code = load "./${params.COMPILATION-TCOOLS}.groovy"
+            }
+        }
+    }
 
     stages {
         stage('Compilación & Test') {
-            steps {
-                sh 'gradle build'
-            }
+
+         steps {
+                script {
+                    code.Build()
+                }
         }
 
        stage('Análisis Sonarqube') {
