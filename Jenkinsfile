@@ -12,7 +12,7 @@ pipeline {
     }
 
     parameters {
-        choice(name: 'COMPILATION-TCOOLS', choices: ['maven', 'gradle'], description: 'Tool')
+        choice(name: 'COMPILATIONTOOLS', choices: ['maven', 'gradle'], description: 'Tool')
     }
 
 
@@ -22,7 +22,7 @@ pipeline {
     stage('Carga script') {
         steps {
             script {
-                code = load "./${params.COMPILATION-TCOOLS}.groovy"
+                code = load "./${params.COMPILATIONTOOLS}.groovy"
             }
         }
     }
