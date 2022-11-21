@@ -1,3 +1,7 @@
+
+    tools{
+        maven 'MavenTools'
+    }
 def Build() {
   sh 'mvnw clean compile -e'
   sh 'mvnw clean test -e'
