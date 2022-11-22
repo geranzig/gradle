@@ -1,5 +1,9 @@
 
 def Build() {
+    sh '''#!/bin/bash
+            chmod +x gradlew
+            '''
+
   sh './gradlew build'
 }
 def Test(){
