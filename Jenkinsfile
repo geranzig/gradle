@@ -114,7 +114,7 @@ pipeline {
 
                 slackSend channel:'#devops-equipo5',
                         color:COLOR_MAP[currentBuild.currentResult],
-                        message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} ${params.COMPILATIONTOOLS} build ${env.BUILD_NUMBER} by Álvaro SeisDedos"
+                        message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} ${params.COMPILATIONTOOLS} build ${env.BUILD_NUMBER} by GCORNEJO"
            
             }
         }
