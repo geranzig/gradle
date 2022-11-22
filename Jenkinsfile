@@ -100,11 +100,14 @@ pipeline {
     }
     post{
             success{
-                setBuildStatus("Build succeeded", "SUCCESS");
+                 echo 'Build succeeded'
+                /*setBuildStatus("Build succeeded", "SUCCESS");*/
             }
 
             failure {
-                setBuildStatus("Build failed", "FAILURE");
+                 echo 'Build failed'
+                
+              /*  setBuildStatus("Build failed", "FAILURE");*/
             } 
 
            always{
@@ -114,7 +117,7 @@ pipeline {
 
                 slackSend channel:'#devops-equipo5',
                         color:COLOR_MAP[currentBuild.currentResult],
-                        message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} ${params.COMPILATIONTOOLS} build ${env.BUILD_NUMBER} by GCORNEJO"
+                        message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} ${params.COMPILATIONTOOLS} build ${env.BUILD_NUMBER} by ${BUILD_USER}"
            
             }
         }
