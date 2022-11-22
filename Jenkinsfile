@@ -114,7 +114,7 @@ pipeline {
 
                 slackSend channel:'#devops-equipo5',
                         color:COLOR_MAP[currentBuild.currentResult],
-                        message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} ${params.COMPILATIONTOOLS} build ${env.BUILD_NUMBER} by GCORNEJO"
+                        message: "*${currentBuild.currentResult}:* ${env.JOB_NAME} ${params.COMPILATIONTOOLS} build ${env.BUILD_NUMBER} by PLAGOS"
            
             }
         }
@@ -124,7 +124,7 @@ pipeline {
 
 
 
-/*
+
 void setBuildStatus(String message, String state) {
     step([
         $class: "GitHubCommitStatusSetter",
@@ -133,4 +133,4 @@ void setBuildStatus(String message, String state) {
         errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
         statusResultSource: [$class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]]]
     ]);
-}*/
+}
